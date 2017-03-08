@@ -26,9 +26,11 @@ RUN mkdir -p /opt/eclipse && \
     dnf remove -y git java-1.8.0-openjdk-devel maven && \
     dnf install -y jre-1.8.0-openjdk-headless && \
     rm -Rf /kura /root/.m2 && dnf -y clean all && \
-    chown -R kurauser:kurauser /opt/eclipse/kura_3.0.0-SNAPSHOT_fedora25-nn && \
+    chown -R kurauser:root /opt/eclipse/kura_3.0.0-SNAPSHOT_fedora25-nn && \
+    chmod -R g+rwx  /opt/eclipse/kura_3.0.0-SNAPSHOT_fedora25-nn && \
     touch /var/log/kura.log && \
-    chown kurauser:kurauser /var/log/kura.log
+    chown kurauser:root /var/log/kura.log && \
+    chmod g+rwx /var/log/kura.log
 
 USER kurauser
 
