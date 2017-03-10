@@ -23,7 +23,7 @@ RUN mkdir -p /opt/eclipse && \
       mvn -f kura/distrib/pom.xml clean install $MAVEN_PROPS -Pfedora25 \
     ) && \
     /kura/kura/distrib/target/kura_3.0.0-SNAPSHOT_fedora25-nn_installer.sh && \
-    wget https://github.com/bcgov/kura-emulator/blob/master/weather_demo.csv -O /opt/eclipse/kura/weather_demo.csv && \
+    wget https://raw.githubusercontent.com/bcgov/kura-emulator/master/weather_demo.csv -O /opt/eclipse/kura/weather_demo.csv && \
     dnf remove -y wget git java-1.8.0-openjdk-devel maven && \
     dnf install -y jre-1.8.0-openjdk-headless && \
     rm -Rf /kura /root/.m2 && dnf -y clean all && \
