@@ -12,7 +12,7 @@ COPY kura.patch /
 RUN mkdir -p /opt/eclipse && \
     useradd -m -d /opt/eclipse/kura_3.0.0-SNAPSHOT_fedora25-nn \
             -s /bin/bash kurauser && \
-    dnf -y install git java-1.8.0-openjdk-devel maven procps-ng zip unzip tar psmisc telnet dos2unix net-tools hostname && \
+    dnf -y install wget git java-1.8.0-openjdk-devel maven procps-ng zip unzip tar psmisc telnet dos2unix net-tools hostname && \
     git clone https://github.com/eclipse/kura.git && cd kura && git checkout $KURA_COMMIT && \
     ( \
       cd /kura && \
@@ -23,7 +23,8 @@ RUN mkdir -p /opt/eclipse && \
       mvn -f kura/distrib/pom.xml clean install $MAVEN_PROPS -Pfedora25 \
     ) && \
     /kura/kura/distrib/target/kura_3.0.0-SNAPSHOT_fedora25-nn_installer.sh && \
-    dnf remove -y git java-1.8.0-openjdk-devel maven && \
+    wget https://github.com/bcgov/kura-emulator/blob/master/weather_demo.csv -O /opt/eclipse/kura/weather_demo.csv && \
+    dnf remove -y wget git java-1.8.0-openjdk-devel maven && \
     dnf install -y jre-1.8.0-openjdk-headless && \
     rm -Rf /kura /root/.m2 && dnf -y clean all && \
     chown -R kurauser:root /opt/eclipse/kura_3.0.0-SNAPSHOT_fedora25-nn && \
